@@ -99,7 +99,7 @@ You can replace it later with your own backend or a real e-commerce API.
 ## 🧑‍💻 Author
 
 **Yahia Mohamed**
-💼 [LinkedIn]([https://www.linkedin.com/](https://www.linkedin.com/in/0yr003/)) • 🌐 [Portfolio](https://github.com/yahia0mohamed)
+💼 [LinkedIn]([https://www.linkedin.com/](https://www.linkedin.com/in/0yr003/)) • 🌐 [Portfolio]([https://github.com/yahia0mohamed](https://yahia-mohamed-portfiolio.netlify.app/))
 
 ---
 
