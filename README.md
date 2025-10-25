@@ -39,7 +39,7 @@ src/
 ├── environments/
 └── styles.css
 
-````
+```
 
 ---
 
@@ -59,7 +59,6 @@ src/
    ```bash
    git clone https://github.com/Yahia0mohamed/cartify.git
    cd cartify
-````
 
 2. **Install dependencies**
 
@@ -111,8 +110,3 @@ This project is licensed under the **MIT License** — feel free to use and modi
 ---
 
 > Cartify — Simple. Modular. Scalable.
-
-```
-
-Would you like me to make this README include **badges** (Angular version, license, API used, etc.) and a **preview image section** at the top? It’ll make it look more polished for GitHub.
-```
