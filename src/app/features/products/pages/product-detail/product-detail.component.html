@@ -1,0 +1,240 @@
+<div *ngIf="loading" class="max-w-7xl mx-auto px-4 py-16 animate-pulse">
+  <div class="bg-white rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 gap-8">
+    
+    <!-- Image Skeleton -->
+    <div class="bg-slate-100 h-96 w-full rounded-2xl"></div>
+    
+    <!-- Info Skeleton -->
+    <div class="space-y-6 p-8">
+      <div class="h-6 bg-slate-200 w-1/3 rounded"></div>
+      <div class="h-10 bg-slate-200 w-2/3 rounded"></div>
+      <div class="h-8 bg-slate-200 w-1/2 rounded"></div>
+      <div class="h-20 bg-slate-200 w-full rounded"></div>
+
+      <div class="flex space-x-4">
+        <div class="h-12 bg-slate-200 w-32 rounded"></div>
+        <div class="h-12 bg-slate-200 w-32 rounded"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!loading" class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <!-- <app-navbar></app-navbar> -->
+    <!-- Navigation Breadcrumb -->
+    <div class="max-w-7xl mx-auto px-4 pt-8">
+        <nav class="flex items-center gap-2 text-sm text-slate-600 mb-8">
+            <a (click)="goToHome()" class="hover:text-blue-600 cursor-pointer transition-colors">
+                <fa-icon icon="home" class="mr-1"></fa-icon>
+                Home
+            </a>
+            <fa-icon icon="chevron-right" class="text-slate-400 text-xs"></fa-icon>
+            <span class="text-slate-500">{{ product.category }}</span>
+            <fa-icon icon="chevron-right" class="text-slate-400 text-xs"></fa-icon>
+            <span class="text-blue-600 font-medium">{{ product.title }}</span>
+        </nav>
+    </div>
+
+    <!-- Main Product Section -->
+    <div class="max-w-7xl mx-auto px-4 pb-16">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                
+                <!-- Product Image Section -->
+                <div class="relative bg-gradient-to-br from-slate-50 to-slate-100 p-8 lg:p-12">
+                    <div class="relative group">
+                        <div class="aspect-square bg-white rounded-2xl shadow-lg overflow-hidden">
+                            <img [src]="product.image" 
+                                 [alt]="product.title"
+                                 class="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Information Section -->
+                <div class="p-8 lg:p-12">
+                    
+                    <!-- Product Category Badge -->
+                    <div class="inline-block bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide mb-4">
+                        {{ product.category }}
+                    </div>
+
+                    <!-- Product Title -->
+                    <h1 class="text-3xl lg:text-4xl font-black text-slate-800 mb-6 leading-tight">
+                        {{ product.title }}
+                    </h1>
+
+                    <!-- Price Section -->
+                    <div class="mb-8">
+                        <div class="flex items-center gap-4 mb-2">
+                            <span class="text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                ${{ product.price }}
+                            </span>
+                            <span class="text-xl text-slate-400 line-through">${{ (product.price * 1.25).toFixed(2) }}</span>
+                            <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                20% OFF
+                            </span>
+                        </div>
+                        <p class="text-green-600 font-medium">
+                            <fa-icon icon="check-circle" class="mr-1"></fa-icon>
+                            In Stock - Ready to Ship
+                        </p>
+                    </div>
+
+                    <!-- Product Description -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-3">Description</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            {{ product.description }}
+                        </p>
+                    </div>
+
+                    <!-- Quantity Selection -->
+                    <div class="mb-8">
+                        <h4 class="text-sm font-bold text-slate-800 mb-3">Quantity</h4>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center border-2 border-slate-200 rounded-lg">
+                                <button (click)="decreaseQuantity()" 
+                                        class="px-4 py-2 hover:bg-slate-100 transition-colors disabled:opacity-50"
+                                        [disabled]="quantity <= 1">
+                                    <fa-icon icon="minus"></fa-icon>
+                                </button>
+                                <span class="px-4 py-2 font-bold">{{ quantity }}</span>
+                                <button (click)="increaseQuantity()" 
+                                        class="px-4 py-2 hover:bg-slate-100 transition-colors disabled:opacity-50"
+                                        [disabled]="quantity >= 10">
+                                    <fa-icon icon="plus"></fa-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="space-y-4">
+                        <button (click)="addToCart()" 
+                                class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 hover:shadow-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                            <fa-icon icon="shopping-cart" class="mr-2"></fa-icon>
+                            Add to Cart - ${{ (product.price * quantity).toFixed(2) }}
+                        </button>
+                        
+                        <!-- <button (click)="buyNow()" 
+                                class="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white py-4 rounded-xl font-bold text-lg hover:from-amber-600 hover:to-orange-600 transition-all duration-300 hover:shadow-xl transform hover:scale-105">
+                            <fa-icon icon="bolt" class="mr-2"></fa-icon>
+                            Buy Now
+                        </button> -->
+                    </div>
+
+                    <!-- Features List -->
+                    <div class="mt-8 pt-8 border-t border-slate-200">
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div class="flex items-center gap-2 text-slate-600">
+                                <fa-icon icon="truck" class="text-green-500"></fa-icon>
+                                Free Shipping
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-600">
+                                <fa-icon icon="undo" class="text-blue-500"></fa-icon>
+                                30-Day Returns
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-600">
+                                <fa-icon icon="shield-alt" class="text-purple-500"></fa-icon>
+                                2-Year Warranty
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-600">
+                                <fa-icon icon="headset" class="text-orange-500"></fa-icon>
+                                24/7 Support
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Information Tabs -->
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden mb-12">
+            <!-- Tab Navigation -->
+            <div class="border-b border-slate-200">
+                <div class="flex">
+                    <button (click)="setActiveTab('details')" 
+                            class="px-8 py-4 font-bold transition-colors"
+                            [ngClass]="activeTab === 'details' ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'">
+                        Details
+                    </button>
+                    <button (click)="setActiveTab('shipping')" 
+                            class="px-8 py-4 font-bold transition-colors"
+                            [ngClass]="activeTab === 'shipping' ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'">
+                        Shipping
+                    </button>
+                    <button (click)="setActiveTab('returns')" 
+                            class="px-8 py-4 font-bold transition-colors"
+                            [ngClass]="activeTab === 'returns' ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50' : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50'">
+                        Returns
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="p-8">
+                <!-- Details Tab -->
+                <div *ngIf="activeTab === 'details'" class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Product Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <h4 class="font-bold text-slate-700 mb-2">Product ID</h4>
+                                <p class="text-slate-600">{{ product.id }}</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <h4 class="font-bold text-slate-700 mb-2">Category</h4>
+                                <p class="text-slate-600">{{ product.category }}</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <h4 class="font-bold text-slate-700 mb-2">Price</h4>
+                                <p class="text-slate-600">${{ product.price }}</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <h4 class="font-bold text-slate-700 mb-2">Availability</h4>
+                                <p class="text-slate-600">In Stock</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping Tab -->
+                <div *ngIf="activeTab === 'shipping'" class="space-y-4">
+                    <h3 class="text-xl font-bold text-slate-800">Shipping Information</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-slate-700 mb-2">Standard Shipping</h4>
+                            <p class="text-slate-600 mb-2">Free on orders over $50</p>
+                            <p class="text-slate-600">Delivery: 5-7 business days</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-700 mb-2">Express Shipping</h4>
+                            <p class="text-slate-600 mb-2">$9.99 flat rate</p>
+                            <p class="text-slate-600">Delivery: 2-3 business days</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Returns Tab -->
+                <div *ngIf="activeTab === 'returns'" class="space-y-4">
+                    <h3 class="text-xl font-bold text-slate-800">Return Policy</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h4 class="font-bold text-slate-700 mb-2">30-Day Return Window</h4>
+                            <p class="text-slate-600">Items can be returned within 30 days of purchase for a full refund.</p>
+                        </div>
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h4 class="font-bold text-slate-700 mb-2">Free Returns</h4>
+                            <p class="text-slate-600">We provide prepaid return labels for all eligible returns.</p>
+                        </div>
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h4 class="font-bold text-slate-700 mb-2">Condition Requirements</h4>
+                            <p class="text-slate-600">Items must be in original condition with all tags and packaging.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

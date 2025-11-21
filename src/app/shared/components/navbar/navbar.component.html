@@ -1,0 +1,48 @@
+<div class="w-full flex items-center justify-center sticky top-0 z-50 mt-2">
+    <nav
+        class="w-full max-w-7xl flex items-center justify-between bg-blue-400 text-white px-4 md:px-8 py-3 rounded-xl shadow-md">
+        <!-- Logo -->
+        <div (click)="goToHome()" class="flex items-center gap-2 cursor-pointer group">
+            <fa-icon icon="cart-shopping" class="text-xl md:text-2xl"></fa-icon>
+            <p class="text-xl md:text-2xl font-bold tracking-tight">Store</p>
+        </div>
+
+        <!-- Logged In -->
+        <div *ngIf="isLoggedIn" class="flex items-center gap-2 sm:gap-3">
+            <button (click)="goToCart()" class="flex items-center gap-1 sm:gap-2 border border-white text-white 
+           px-2 py-1 sm:px-4 sm:py-2 rounded-md font-medium 
+           hover:bg-white hover:text-blue-600 transition text-sm sm:text-base">
+                <span>Cart</span>
+                <span class="flex items-center border border-white px-2 py-0.5 rounded-full text-xs">
+                    {{ (cartCount$ | async) ?? 0 }}
+                </span>
+                <fa-icon icon="cart-shopping" class="text-base sm:text-lg"></fa-icon>
+            </button>
+            <app-cart-modal *ngIf="showCartModal" (close)="closeCart()"></app-cart-modal>
+            <button (click)="logout()" class="flex items-center gap-1 sm:gap-2 bg-red-500 hover:bg-red-600 
+           text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md font-medium 
+           transition text-sm sm:text-base">
+                <span>Logout</span>
+                <fa-icon icon="right-from-bracket" class="text-base sm:text-lg"></fa-icon>
+            </button>
+        </div>
+
+        <!-- Not Logged In -->
+        <div *ngIf="!isLoggedIn" class="flex items-center gap-2 sm:gap-3">
+            <button (click)="goToRegister()" class="flex items-center gap-1 sm:gap-2 border border-white text-white 
+           px-2 py-1 sm:px-4 sm:py-2 rounded-md font-medium 
+           hover:bg-white hover:text-blue-600 transition text-sm sm:text-base">
+                <span>Register</span>
+                <fa-icon icon="registered" class="text-base sm:text-lg"></fa-icon>
+            </button>
+
+            <button (click)="goToLogin()" class="flex items-center gap-1 sm:gap-2 bg-white text-blue-600 
+           px-2 py-1 sm:px-4 sm:py-2 rounded-md font-medium 
+           hover:bg-gray-100 transition text-sm sm:text-base">
+                <span>Login</span>
+                <fa-icon icon="right-to-bracket" class="text-base sm:text-lg"></fa-icon>
+            </button>
+        </div>
+
+    </nav>
+</div>

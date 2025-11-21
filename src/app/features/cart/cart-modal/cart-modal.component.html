@@ -1,0 +1,39 @@
+<div (click)="onClose()" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white w-11/12 md:w-2/3 lg:w-1/2 rounded-xl shadow-lg overflow-hidden">
+        <!-- Header -->
+        <div class="flex justify-between items-center p-4 border-b">
+            <h2 class="text-lg font-bold text-slate-700">Your Cart</h2>
+            <button (click)="clearCart()" class="text-red-500 hover:text-red-700 text-sm font-medium">
+                Clear Cart
+            </button>
+        </div>
+
+        <!-- Cart Items -->
+        <div class="max-h-96 overflow-y-auto divide-y">
+            <div *ngFor="let item of items$ | async" class="flex items-center justify-between p-4">
+                <div class="flex items-center gap-3">
+                    <img [src]="item.product.image" [alt]="item.product.title"
+                        class="w-12 h-12 object-cover rounded-md" />
+                    <div>
+                        <p class="font-medium text-slate-700">{{ item.product.title }}</p>
+                        <p class="text-xs text-slate-500">x{{ item.quantity }}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <p class="font-bold text-slate-800">${{ item.totalPriceForItem.toFixed(2) }}</p>
+                    <button (click)="removeItem(item.product.id)" class="text-red-500 hover:text-red-700">
+                        ✕
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="p-4 border-t flex justify-between items-center">
+            <p class="text-lg font-bold">Total: ${{ total$ | async }}</p>
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-blue-700">
+                Checkout
+            </button>
+        </div>
+    </div>
+</div>
